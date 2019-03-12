@@ -1,0 +1,11 @@
+app_id: "SAMPLE"
+app_name: "SAMPLE"
+
+development:
+  current_env: "SAMPLE"
+
+production:
+  current_env: "SAMPLE"
+
+staging:
+  current_env: "SAMPLE"
