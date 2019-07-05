@@ -8,3 +8,9 @@ production:
   database: demo_chat_application
   username: myapp
   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+
+development:
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  database: db/development.sqlite3

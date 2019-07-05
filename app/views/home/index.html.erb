@@ -1,1 +1,42 @@
 <h1>Chat application!!!</h1>
+
+<div>
+  <div id="login-box">
+    <input id="username"></input>
+    <button id="btn-login">Login</button>
+  </div>
+
+  <div id="chat-box" style="display: none;">
+    <h3>Onlines</h3>
+    <ul id="online-users"></ul>
+
+    <button id="call">Call</button>
+  </div>
+</div>
+
+<script>
+  var socket = io.connect("https://nodejs-chat-app-dvm.herokuapp.com");
+
+  socket.on("server-send-desc", (desc) => {
+    console.log(desc);
+  })
+  socket.on("server-send-new-user", (data) => {
+    $("#online-users").append($("<li>").attr("data-id", data.id).text(data.username));
+  });
+
+  $(document).ready(function() {
+    $("#btn-login").on("click", () => {
+      var username = $("#username").val();
+      if(username == "") return;
+
+      socket.emit("client-send-new-user", username);
+
+      $("#chat-box").show();
+      $("#login-box").hide();
+    });
+
+    $("#call").on("click", () => {
+      socket.emit("client-send-desc", "desc content");
+    });
+  });
+</script>
